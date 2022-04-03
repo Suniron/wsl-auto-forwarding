@@ -55,9 +55,25 @@ subprocess.Popen(
 subprocess.Popen(
     "powershell -command \"New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Inbound -LocalPort $ports_a -Action Allow -Protocol TCP\"", stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
 
-# For each port, create a local redirect rule:
+# For each port, create local redirect rules:
 for port in all_ports.split(","):
     subprocess.Popen(
         f"netsh interface portproxy delete v4tov4 listenport={port} listenaddress={windows_ip_address}", stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
     subprocess.Popen(
         f"netsh interface portproxy add v4tov4 listenport={port} listenaddress={windows_ip_address} connectport={port} connectaddress={wsl_ip_address}", stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+
+print("##############################################")
+print("Done! Please, check the configuration below:\n")
+print("##############################################")
+print("############## FIREWALL RULES ################")
+print("##############################################")
+os.system(
+    "powershell -command \"Get-NetFirewallRule -DisplayName 'WSL 2 Firewall Unlock'\"")
+
+print("##############################################")
+print("########### LOCAL REDIRECT RULES #############")
+print("##############################################")
+os.system("netsh interface portproxy show v4tov4")
+
+print("##############################################")
+print("You can contribute here: https://github.com/Suniron/wsl-port-forwarding")
