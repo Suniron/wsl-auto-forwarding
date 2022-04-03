@@ -1,4 +1,4 @@
-# wsl-auto-forwarding
+# wsl-port-forwarding
 
 This script can be used to handle the forwarding of ports between your Windows host and your WSL2 machine.
 
