@@ -1,5 +1,9 @@
 # wsl-auto-forwarding
 
+This script can be used to handle the forwarding of ports between your Windows host and your WSL2 machine.
+
+This is usefully because WSL2 distros cannot have a fixed IP address so binding port after each reboot of them is necessary.
+
 ## Prerequisites
 
 - [Python3](https://www.python.org/downloads/) installed on Windows host.
